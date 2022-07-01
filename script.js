@@ -1,59 +1,86 @@
+let playerScore = 0;
+let computerScore = 0;
+
 function computerPlay() {
-    let randomNum = Math.floor(Math.random() * 3) + 1;
-    if (randomNum === 1) {
-        return 'Bato';
-    } else if (randomNum === 2) {
-        return 'Papel';
-    } else {
-        return 'Gunting';
+    let randomNum = Math.floor(Math.random() * 3);
+    switch (randomNum) {
+        case 0:
+            return 'BATO';
+        case 1:
+            return 'PAPEL';
+        case 2:
+            return 'GUNTING';
     }
 }
 
-// Group wins
 function playRound(playerSelection, computerSelection) {
-    if (playerSelection == computerSelection) {
-        console.log('Draw');
-        return 'draw';
-    } else if (playerSelection == 'Bato' && computerSelection == 'Gunting') {
-        console.log('You Win! Bato beats Gunting');
-        return 'win';
-    } else if (playerSelection == 'Papel' && computerSelection == 'Bato') {
-        console.log('You Win! Papel beats Bato');
-        return 'win';
-    } else if (playerSelection == 'Gunting' && computerSelection == 'Papel') {
-        console.log('You Win! Gunting beats Papel');
-        return 'win';
-    } else if (playerSelection == 'Gunting' && computerSelection == 'Bato') {
-        console.log('You Lose! Bato beats Gunting');
-        return 'lose';
-    } else if (playerSelection == 'Bato' && computerSelection == 'Papel') {
-        console.log('You Lose! Papel beats Bato');
-        return 'lose';
-    } else if (playerSelection == 'Papel' && computerSelection == 'Gunting') {
-        console.log('You Lose! Gunting beats Papel');
-        return 'lose';
+    endGame();
+
+    if (playerSelection === computerSelection) {
+        roundWinnerInfo.textContent = 'Tabla!';
+        roundInfo.textContent = playerSelection + ' draws with ' + computerSelection;
     }
-}
-
-function game() {
-    let playerScore = 0;
-    let computerScore = 0;
-
-    while (playerScore !== 5 || computerScore !== 5) {
-        let result = playRound(prompt('Choose your armas'), computerPlay());
+    if ((playerSelection === 'BATO' && computerSelection === 'GUNTING') ||
+        (playerSelection === 'GUNTING' && computerSelection === 'PAPEL') ||
+        (playerSelection === 'PAPEL' && computerSelection === 'BATO')) {
+        roundWinnerInfo.textContent = 'Panalo ka!';
+        roundInfo.textContent = playerSelection + ' beats ' + computerSelection;
+        playerScore++;
         
-        if (result == 'win') {
-            playerScore++;
-        } else if (result == 'lose') {
-            computerScore++;
-        }
+    }
+    if ((computerSelection === 'BATO' && playerSelection === 'GUNTING') ||
+        (computerSelection === 'GUNTING' && playerSelection === 'PAPEL') ||
+        (computerSelection === 'PAPEL' && playerSelection === 'BATO')) {
+        roundWinnerInfo.textContent = 'Olats erps!';
+        roundInfo.textContent = computerSelection + ' beats ' + playerSelection;
+        computerScore++;    
+    }
+    
+    updateDisplayInfo(playerSelection, computerSelection);
+    setTimeout(() => endGame(), 50);
+}
+
+function updateDisplayInfo(playerSelection, computerSelection) {
+    if (playerSelection == 'BATO') {
+        playerDisplaySelectionImg.src = './images/hand-back-fist-solid.svg';
+    } else if (playerSelection == 'PAPEL') {
+        playerDisplaySelectionImg.src = './images/hand-solid.svg';
+    } else if (playerSelection == 'GUNTING') {
+        playerDisplaySelectionImg.src = './images/hand-scissors-solid.svg';
     }
 
-    if (playerScore == 5) {
-        alert('You Win!');
-    } else if (computerScore == 5) {
-        alert('You Lose!');
+    if (computerSelection == 'BATO') {
+        computerDisplaySelectionImg.src = './images/hand-back-fist-solid.svg';
+    } else if (computerSelection == 'PAPEL') {
+        computerDisplaySelectionImg.src = './images/hand-solid.svg';
+    } else if (computerSelection == 'GUNTING') {
+        computerDisplaySelectionImg.src = './images/hand-scissors-solid.svg';
+    }
+    playerDisplayScore.textContent = `Player: ${playerScore}`;
+    computerDisplayScore.textContent = `Computer: ${computerScore}`;
+}
+
+function endGame() {
+    if (playerScore === 5) {
+        alert('GGWP!');
+        window.location.reload()
+    } else if (computerScore === 5) {
+        alert('Aww.. iyak!');
+        window.location.reload()
     }
 }
 
-// game();
+const roundWinnerInfo = document.querySelector('.content__task');
+const roundInfo = document.querySelector('.content__game-info');
+const playerDisplaySelectionImg = document.querySelector('.content__player-selection img');
+const computerDisplaySelectionImg = document.querySelector('.content__computer-selection img');
+const playerDisplayScore = document.querySelector('.content__player-score');
+const computerDisplayScore = document.querySelector('.content__computer-score');
+
+const batoBtn = document.querySelector('.content__bato-button');
+const papelBtn = document.querySelector('.content__papel-button');
+const guntingBtn = document.querySelector('.content__gunting-button');
+
+batoBtn.addEventListener('click', () => playRound('BATO', computerPlay()));
+papelBtn.addEventListener('click', () => playRound('PAPEL', computerPlay()));
+guntingBtn.addEventListener('click', () => playRound('GUNTING', computerPlay()));
