@@ -1,13 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Bato Bato Pick</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="shortcut icon" href="./images/react-sharingan.svg">
     <script src="./script.js"></script>
+    <script src="https://kit.fontawesome.com/0487590386.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
-    
+    <div class="header">
+        <div class="header__title">Bato Bato Pick</div>
+    </div>
+
+    <div class="content">
+        <div class="content__info">
+            <div class="content__task">Select your armas</div>
+            <div class="content__game-info">First to score 5 points win</div>
+            <div class="content__results">
+                <div class="content__display-player">
+                    <div class="content__player-selection">
+                        <img src="./images/question-solid.svg" alt="? icon">
+                    </div>
+                    <div class="content__player-score">Player: 0</div>
+                </div>
+
+                <div class="content__display-computer">
+                    <div class="content__computer-selection">
+                        <img src="./images/question-solid.svg" alt="? icon">
+                    </div>
+                    <div class="content__computer-score">Computer: 0</div>
+                </div>                
+            </div>
+        </div>
+        <div class="content__select-armas">
+            <div class="content__bato">
+                <button class="content__bato-button">
+                    <img src="./images/hand-back-fist-solid.svg" alt="bato icon">
+                </button>
+            </div>
+            <div class="content__papel">
+                <button class="content__papel-button">
+                    <img src="./images/hand-solid.svg" alt="papel icon">
+                </button>
+            </div>
+            <div class="content__gunting">
+                <button class="content__gunting-button">
+                    <img src="./images/hand-scissors-solid.svg" alt="gunting icon">
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer__author">Edriech Balajadia 2022</div>
+        <a href="https://github.com/kudegras" target="_blank">
+            <img src="./images/github.svg" alt="github icon">
+        </a>
+    </div>
 </body>
+
 </html>
