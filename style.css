@@ -22,10 +22,6 @@ body {
 
 .content {
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    
 }
 
 .content__info {
